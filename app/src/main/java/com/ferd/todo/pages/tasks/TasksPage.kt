@@ -25,7 +25,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import com.ferd.todo.R
 import com.ferd.todo.entities.task.TasksViewModel
 import com.ferd.todo.entities.task.data.TaskEntity
-import com.ferd.todo.features.task.editor.TaskEditorDialog
+import com.ferd.todo.features.task.editor.TaskEditorBottomSheet
 import com.ferd.todo.features.task.list.TaskRow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,7 +67,7 @@ fun TasksPage(vm: TasksViewModel) {
         }
 
         if (editorOpen) {
-            TaskEditorDialog(
+            TaskEditorBottomSheet(
                 initial = editingTask,
                 onDismiss = { editorOpen = false },
                 onSave = { title, description, dueAtMillis ->
@@ -82,4 +82,3 @@ fun TasksPage(vm: TasksViewModel) {
         }
     }
 }
-
