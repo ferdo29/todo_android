@@ -19,6 +19,19 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Conditional release signing (works locally and in CI)
+    signingConfigs {
+        create("release") {
+            val storeFilePath = providers.gradleProperty("RELEASE_STORE_FILE").orNull
+            if (storeFilePath != null) {
+                storeFile = file(storeFilePath)
+                storePassword = providers.gradleProperty("RELEASE_STORE_PASSWORD").orNull
+                keyAlias = providers.gradleProperty("RELEASE_KEY_ALIAS").orNull
+                keyPassword = providers.gradleProperty("RELEASE_KEY_PASSWORD").orNull
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -26,6 +39,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Apply signing only when all props are present
+            val hasSigning = listOf(
+                providers.gradleProperty("RELEASE_STORE_FILE").orNull,
+                providers.gradleProperty("RELEASE_STORE_PASSWORD").orNull,
+                providers.gradleProperty("RELEASE_KEY_ALIAS").orNull,
+                providers.gradleProperty("RELEASE_KEY_PASSWORD").orNull,
+            ).all { it?.isNotBlank() == true }
+            if (hasSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
