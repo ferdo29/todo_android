@@ -13,8 +13,8 @@ android {
         applicationId = "com.ferd.todo"
         minSdk = 29
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,16 +39,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // Apply signing only when all props are present
-            val hasSigning = listOf(
-                providers.gradleProperty("RELEASE_STORE_FILE").orNull,
-                providers.gradleProperty("RELEASE_STORE_PASSWORD").orNull,
-                providers.gradleProperty("RELEASE_KEY_ALIAS").orNull,
-                providers.gradleProperty("RELEASE_KEY_PASSWORD").orNull,
-            ).all { it?.isNotBlank() == true }
-            if (hasSigning) {
-                signingConfig = signingConfigs.getByName("release")
-            }
+//             Apply signing only when all props are present
+//            val hasSigning = listOf(
+//                providers.gradleProperty("RELEASE_STORE_FILE").orNull,
+//                providers.gradleProperty("RELEASE_STORE_PASSWORD").orNull,
+//                providers.gradleProperty("RELEASE_KEY_ALIAS").orNull,
+//                providers.gradleProperty("RELEASE_KEY_PASSWORD").orNull,
+//            ).all { it?.isNotBlank() == true }
+//            if (hasSigning) {
+//                signingConfig = signingConfigs.getByName("release")
+//            }
         }
     }
     compileOptions {
