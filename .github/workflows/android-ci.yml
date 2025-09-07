@@ -52,33 +52,33 @@ jobs:
       - name: Run unit tests
         run: ./gradlew --no-daemon testDebugUnitTest
 
-      # Sign and build Release only if secrets are present
-      - name: Decode release keystore
-        # if: ${{ secrets.RELEASE_STORE_FILE_B64 != '' }}
-        run: echo "$RELEASE_STORE_FILE_B64" | base64 -d > app/release.keystore
-        env:
-          RELEASE_STORE_FILE_B64: ${{ secrets.RELEASE_STORE_FILE_B64 }}
+      # # Sign and build Release only if secrets are present
+      # - name: Decode release keystore
+      #   # if: ${{ secrets.RELEASE_STORE_FILE_B64 != '' }}
+      #   run: echo "$RELEASE_STORE_FILE_B64" | base64 -d > app/release.keystore
+      #   env:
+      #     RELEASE_STORE_FILE_B64: ${{ secrets.RELEASE_STORE_FILE_B64 }}
 
-      - name: Build signed Release AAB and APK
-        env:
-          ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: app/release.keystore
-          ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
-          ORG_GRADLE_PROJECT_RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
-          ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
-        run: |
-          ./gradlew --no-daemon assembleRelease bundleRelease
+      # - name: Build signed Release AAB and APK
+      #   env:
+      #     ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: app/release.keystore
+      #     ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+      #     ORG_GRADLE_PROJECT_RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+      #     ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+      #   run: |
+      #     ./gradlew --no-daemon assembleRelease bundleRelease
 
-      - name: Upload release artifacts
-        # if: ${{ secrets.RELEASE_STORE_FILE_B64 != '' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: |
-            app/build/outputs/apk/release/*.apk
-            app/build/outputs/bundle/release/*.aab
+      # - name: Upload release artifacts
+      #   # if: ${{ secrets.RELEASE_STORE_FILE_B64 != '' }}
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-release
+      #     path: |
+      #       app/build/outputs/apk/release/*.apk
+      #       app/build/outputs/bundle/release/*.aab
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+      # - name: Upload APK artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-debug-apk
+      #     path: app/build/outputs/apk/debug/*.apk
