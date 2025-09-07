@@ -19,9 +19,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run unit tests
-        run: ./gradlew --no-daemon testDebugUnitTest
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -51,6 +48,9 @@ jobs:
 
       - name: Build Debug APK
         run: ./gradlew --no-daemon clean assembleDebug
+
+      - name: Run unit tests
+        run: ./gradlew --no-daemon testDebugUnitTest
 
       # # Sign and build Release only if secrets are present
       # - name: Decode release keystore
