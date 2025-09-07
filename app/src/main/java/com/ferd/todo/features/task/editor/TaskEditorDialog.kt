@@ -14,6 +14,8 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -29,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import com.ferd.todo.R
 import com.ferd.todo.entities.task.data.TaskEntity
 import com.ferd.todo.shared.util.formatDate
@@ -101,15 +104,19 @@ fun TaskEditorBottomSheet(
                     Text(text = stringResource(id = R.string.btn_pick_time, formatTime(time)))
                 }
             }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                TextButton(onClick = onDismiss) { Text(text = stringResource(id = R.string.action_cancel)) }
-                TextButton(
-                    onClick = {
-                        val dueMillis = LocalDateTime.of(date, time).atZone(zone).toInstant().toEpochMilli()
-                        onSave(title.trim(), description.trim(), dueMillis)
-                    },
-                    enabled = title.isNotBlank()
-                ) { Text(text = stringResource(id = R.string.action_save)) }
+            Button(
+                onClick = {
+                    val dueMillis = LocalDateTime.of(date, time).atZone(zone).toInstant().toEpochMilli()
+                    onSave(title.trim(), description.trim(), dueMillis)
+                },
+                enabled = title.isNotBlank(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = stringResource(id = R.string.action_save))
             }
         }
     }
