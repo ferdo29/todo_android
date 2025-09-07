@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="title_tasks">Задачи</string>
+    <string name="cd_add_task">Добавить задачу</string>
+    <string name="cd_delete_task">Удалить задачу</string>
+    <string name="title_add_task">Новая задача</string>
+    <string name="title_edit_task">Редактировать задачу</string>
+    <string name="label_title">Название</string>
+    <string name="label_description">Описание</string>
+    <string name="btn_pick_date">Дата: %1$s</string>
+    <string name="btn_pick_time">Время: %1$s</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_ok">ОК</string>
+</resources>
